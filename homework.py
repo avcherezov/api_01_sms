@@ -8,6 +8,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+account_sid = os.getenv('account_sid')
+auth_token = os.getenv('auth_token')
+NUMBER_FROM = os.getenv('NUMBER_FROM')
+NUMBER_TO = os.getenv('NUMBER_TO')
+
+url = 'https://api.vk.com/method/users.get'
+
 
 def get_status(user_id):
     params = {
@@ -17,16 +24,11 @@ def get_status(user_id):
         'name_case':'Nom',
         'v': '5.92', 
     }
-    url = 'https://api.vk.com/method/users.get'
     user_status = requests.post(url, params=params).json()['response'][0]['online']
     return user_status  # Верните статус пользователя в ВК
 
 
 def sms_sender(sms_text):
-    account_sid = os.getenv('account_sid')
-    auth_token = os.getenv('auth_token')
-    NUMBER_FROM = os.getenv('NUMBER_FROM')
-    NUMBER_TO = os.getenv('NUMBER_TO')
     client = Client(account_sid, auth_token)
     message = client.messages.create(
             body=f"{sms_text}",
