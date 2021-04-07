@@ -24,8 +24,9 @@ def get_status(user_id):
         'name_case':'Nom',
         'v': '5.92', 
     }
-    user_status = requests.post(url, params=params).json()['response'][0]['online']
-    return user_status  # Верните статус пользователя в ВК
+    user_status = requests.post(
+        url, params=params).json()['response'][0]['online']
+    return user_status
 
 
 def sms_sender(sms_text):
@@ -35,7 +36,7 @@ def sms_sender(sms_text):
             from_=NUMBER_FROM,
             to=NUMBER_TO
         )
-    return message.sid  # Верните sid отправленного сообщения из Twilio
+    return message.sid
 
 
 if __name__ == "__main__":
